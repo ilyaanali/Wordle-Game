@@ -26,13 +26,15 @@ while attempts > 0:
             feedback[i] = "🟩"  
             remaining_letters[i] = None
 
+    #Second pass to check for yellow
     for i in range(5):
-        if player_guess[i] in remaining_letters:    
-            feedback[i] = "🟨"  # correct letter wrong position
-            remaining_letters[remaining_letters.index(player_guess[i])] = None
-        else:
-            feedback[i] = "⬛"  # letter not in word
-
+        if feedback[i] == "":
+            if player_guess[i] in remaining_letters:    
+                feedback[i] = "🟨"  # correct letter wrong position
+                remaining_letters[remaining_letters.index(player_guess[i])] = None
+            else:
+                feedback[i] = "⬛"  # letter not in word
+                
     print("".join(feedback))
 
     # Check for win
