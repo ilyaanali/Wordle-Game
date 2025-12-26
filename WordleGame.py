@@ -17,16 +17,23 @@ while attempts > 0:
         continue
 
     # Feedback
-    feedback = ""
-    for i, letter in enumerate(player_guess):
-        if letter == target_word[i]:
-            feedback += "🟩"  # correct letter and position
-        elif letter in target_word:
-            feedback += "🟨"  # correct letter wrong position
-        else:
-            feedback += "⬛"  # letter not in word
+    feedback = [""] * 5
+    remaining_letters = list(target_word)
 
-    print(feedback)
+    #First pass to check for green
+    for i in range(5):
+        if player_guess[i] == target_word[i]:
+            feedback[i] = "🟩"  
+            remaining_letters[i] = None
+
+    for i in range(5):
+        if player_guess[i] in remaining_letters:    
+            feedback[i] = "🟨"  # correct letter wrong position
+            remaining_letters[remaining_letters.index(player_guess[i])] = None
+        else:
+            feedback[i] = "⬛"  # letter not in word
+
+    print("".join(feedback))
 
     # Check for win
     if player_guess == target_word:
